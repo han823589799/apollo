@@ -1,4 +1,6 @@
+add_subdirectory(proto)
 add_subdirectory(common)
+add_subdirectory(base)
 
 add_library(BinaryLibrary binary.cc)
 

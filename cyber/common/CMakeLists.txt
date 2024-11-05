@@ -3,7 +3,6 @@ find_package(GTest REQUIRED)
 find_package(Protobuf REQUIRED)
 
 add_executable(log_test log_test.cc)
-
 target_link_libraries(log_test
   GTest::GTest
   GTest::Main
@@ -12,12 +11,22 @@ target_link_libraries(log_test
   BinaryLibrary
 )
 
-target_include_directories(log_test PUBLIC
-  "${PROJECT_SOURCE_DIR}/cyber"
+add_library(FileLibrary file.cc)
+target_link_libraries(FileLibrary
+  glog::glog
+  ${PROTOBUF_LIBRARIES}
+  CyberProtoLib
+  BinaryLibrary
 )
 
-add_library(FileLibrary file.cc)
+add_executable(file_test file_test.cc)
+target_link_libraries(file_test
+  GTest::GTest
+  GTest::Main
+  pthread
+  FileLibrary
+)
 
-target_link_libraries(FileLibrary
-  ${PROTOBUF_LIBRARIES}
+target_include_directories(file_test PUBLIC
+  "${CMAKE_BINARY_DIR}/cyber/proto"
 )
