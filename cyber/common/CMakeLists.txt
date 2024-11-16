@@ -30,3 +30,12 @@ target_link_libraries(file_test
 target_include_directories(file_test PUBLIC
   "${CMAKE_BINARY_DIR}/cyber/proto"
 )
+
+add_executable(EnvironmentTest environment_test.cc)
+target_link_libraries(EnvironmentTest
+  GTest::GTest
+  GTest::Main
+  pthread
+  glog::glog
+  BinaryLibrary
+)
